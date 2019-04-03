@@ -23,6 +23,7 @@ const path = require('path');
  */
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -89,5 +90,11 @@ module.exports = {
       minSize: 30000,
       name: true,
     }
-  }
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'template.html')
+    })
+  ]
 };
