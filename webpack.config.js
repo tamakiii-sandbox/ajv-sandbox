@@ -25,41 +25,30 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  module: {
-    rules: [
-      {
-        include: [path.resolve(__dirname, 'src')],
-        loader: 'babel-loader',
-
-        options: {
-          plugins: ['syntax-dynamic-import'],
-
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                modules: false
-              }
-            ]
-          ]
-        },
-
-        test: /\.js$/
-      }
-    ]
+  mode: 'development',
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx']
   },
 
   entry: {
-    app: './src/app.js',
-    cli: './src/cli.js',
+    app: './src/app',
+    cli: './src/cli',
     api: './src/api'
   },
 
   output: {
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    path: path.join(__dirname, 'dist'),
   },
 
-  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader'
+      }
+    ]
+  },
 
   optimization: {
     splitChunks: {
