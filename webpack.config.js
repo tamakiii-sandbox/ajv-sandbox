@@ -26,6 +26,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  devtool: 'inline-source-map',
+
   resolve: {
     extensions: ['.js', '.ts', '.tsx']
   },
@@ -33,19 +35,41 @@ module.exports = {
   entry: {
     app: './src/app',
     cli: './src/cli',
-    api: './src/api'
+    api: './src/api',
   },
 
   output: {
-    filename: '[name].[chunkhash].js',
     path: path.join(__dirname, 'dist'),
+    filename: '[name].[chunkhash].js',
+    chunkFilename: "[name]-[chunkhash].js",
   },
 
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader'
+        enforce: 'pre',
+        use: [
+          {
+            loader: 'tslint-loader',
+            options: {
+              typeCheck: true,
+              emitErrors: true,
+              fix: false,
+            }
+          }
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ]
   },
@@ -55,14 +79,15 @@ module.exports = {
       cacheGroups: {
         vendors: {
           priority: -10,
-          test: /[\\/]node_modules[\\/]/
+          test: /[\\/]node_modules[\\/]/,
+          filename: "vendors.[chunkhash].js",
         }
       },
 
       chunks: 'async',
       minChunks: 1,
       minSize: 30000,
-      name: true
+      name: true,
     }
   }
 };
