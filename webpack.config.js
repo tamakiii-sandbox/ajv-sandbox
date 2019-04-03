@@ -80,10 +80,12 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         vendors: {
-          priority: -10,
+          // priority: -10,
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
           filename: "vendors.[chunkhash].js",
+          // reuseExistingChunk: true,
+          chunks: 'all'
         }
       },
 
@@ -95,7 +97,9 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin,
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: "dist"
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'template.html')
     })

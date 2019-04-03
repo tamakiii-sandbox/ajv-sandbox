@@ -1,9 +1,9 @@
 
 lint: tsconfig.json
-	npx tslint -p $^ src/**/*.ts
+	npx tslint -p $^ "src/**/*.{ts,tsx}"
 
 lint-fix: tsconfig.json
-	npx tslint -p $^ --fix src/**/*.ts
+	npx tslint -p $^ --fix "src/**/*.{ts,tsx}"
 
 webpack: webpack.config.js package.json tsconfig.json tslint.json
 	npx nodemon $(foreach f,$^,--watch $f) --exec "npx webpack --mode development --watch --progress"
