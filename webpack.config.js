@@ -24,6 +24,7 @@ const path = require('path');
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = {
   mode: 'development',
@@ -41,8 +42,8 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[hash].js',
-    chunkFilename: "[name]-[chunkhash].js",
+    // filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js'
   },
 
   module: {
@@ -81,6 +82,7 @@ module.exports = {
         vendors: {
           priority: -10,
           test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
           filename: "vendors.[chunkhash].js",
         }
       },
@@ -93,6 +95,7 @@ module.exports = {
   },
 
   plugins: [
+    new CleanWebpackPlugin,
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'template.html')
     })
