@@ -1,1 +1,2 @@
-console.log('This is app')
+export const message: string = 'This is app'
+console.log(message)
