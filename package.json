@@ -1,0 +1,29 @@
+{
+  "name": "ajv-sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.1",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamakiii-sandbox/ajv-sandbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamakiii-sandbox/ajv-sandbox/issues"
+  },
+  "homepage": "https://github.com/tamakiii-sandbox/ajv-sandbox#readme"
+}
